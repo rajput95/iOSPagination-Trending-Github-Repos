@@ -18,9 +18,10 @@ class RepositoriesListViewModel {
     let service: GithubRepositoryServiceProtocol
     let request: RepositoryRequest
     var reloadTableViewCompletion: (([IndexPath]?) -> Void)?
-    var fetchFailedCompletion: ((String) -> Void)?
+    var fetchFailedCompletion: (() -> Void)?
+    var apiRequestDidFail = false
     
-    var isFetchInProgress: Bool {
+    var isDataFetchInProgress: Bool {
         return dataFectchInProgress
     }
     
@@ -53,8 +54,9 @@ class RepositoriesListViewModel {
         guard !dataFectchInProgress else {
           return
         }
-
+        
         dataFectchInProgress = true
+        self.apiRequestDidFail = false
         
         service.searchRepository(with: self.request, for: currentPage, itemsPerPage: itemsPerPage) { [weak self] result in
             
@@ -63,11 +65,11 @@ class RepositoriesListViewModel {
             }
             
             switch result {
-         
-            case .failure(let error):
+            case .failure(_):
               DispatchQueue.main.async {
+                self.apiRequestDidFail = true
                 self.dataFectchInProgress = false
-                self.fetchFailedCompletion?(error.reason)
+                self.fetchFailedCompletion?()
               }
             
             case .success(let response):

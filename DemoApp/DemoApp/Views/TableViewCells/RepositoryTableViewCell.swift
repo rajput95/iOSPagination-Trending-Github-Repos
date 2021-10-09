@@ -49,6 +49,7 @@ class RepositoryTableViewCell: UITableViewCell {
             cellBasicView.hideSkeleton()
             
             if let imageURL = URL(string: repository.owner.avatarURL) {
+                avatarImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
                 avatarImageView.sd_setImage(with: imageURL)
             }
             

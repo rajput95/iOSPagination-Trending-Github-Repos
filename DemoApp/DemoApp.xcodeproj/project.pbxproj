@@ -25,6 +25,9 @@
 		6B671160270E1EB700F72590 /* RepositoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B67115F270E1EB700F72590 /* RepositoriesListViewModel.swift */; };
 		6B671168270E26EB00F72590 /* RepositoriesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B671167270E26EB00F72590 /* RepositoriesListViewController.swift */; };
 		6B709DC92711CC6F000CF4D4 /* retry-and-user-busy-lottie.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B709DC82711CC6F000CF4D4 /* retry-and-user-busy-lottie.json */; };
+		6B73AFDB2711D15400AEBBCC /* APIErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B73AFDA2711D15400AEBBCC /* APIErrorView.swift */; };
+		6B73AFE02711D72B00AEBBCC /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B73AFDF2711D72B00AEBBCC /* UIView+Extension.swift */; };
+		6BCAC0462711EC7000EC8891 /* APIErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BCAC0452711EC7000EC8891 /* APIErrorView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		6B67115F270E1EB700F72590 /* RepositoriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesListViewModel.swift; sourceTree = "<group>"; };
 		6B671167270E26EB00F72590 /* RepositoriesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesListViewController.swift; sourceTree = "<group>"; };
 		6B709DC82711CC6F000CF4D4 /* retry-and-user-busy-lottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "retry-and-user-busy-lottie.json"; sourceTree = "<group>"; };
+		6B73AFDA2711D15400AEBBCC /* APIErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorView.swift; sourceTree = "<group>"; };
+		6B73AFDF2711D72B00AEBBCC /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		6BCAC0452711EC7000EC8891 /* APIErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = APIErrorView.xib; sourceTree = "<group>"; };
 		75259C28AA69D58FE52451AF /* Pods_DemoApp_DemoAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoApp_DemoAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B24ABBC7D6F2F236EF9EEC27 /* Pods-DemoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppTests.debug.xcconfig"; path = "Target Support Files/Pods-DemoAppTests/Pods-DemoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D59D096B7362499A9A75CAAC /* Pods-DemoApp-DemoAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoApp-DemoAppUITests.release.xcconfig"; path = "Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				6B39DBB62710811600507BF8 /* URLRequest+Extension.swift */,
+				6B73AFDF2711D72B00AEBBCC /* UIView+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -197,6 +204,8 @@
 		6B4CB553270CD8B900E0543E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6B73AFDA2711D15400AEBBCC /* APIErrorView.swift */,
+				6BCAC0452711EC7000EC8891 /* APIErrorView.xib */,
 				6B39DB84270F71BD00507BF8 /* TableViewCells */,
 				6B4CB55F270CD8EA00E0543E /* Storyboards */,
 			);
@@ -385,6 +394,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BCAC0462711EC7000EC8891 /* APIErrorView.xib in Resources */,
 				6B4CB52D270CD8B400E0543E /* LaunchScreen.storyboard in Resources */,
 				6B4CB52A270CD8B400E0543E /* Assets.xcassets in Resources */,
 				6B4CB528270CD8B100E0543E /* Main.storyboard in Resources */,
@@ -516,6 +526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B73AFE02711D72B00AEBBCC /* UIView+Extension.swift in Sources */,
 				6B39DBA0271071A200507BF8 /* GithubRepositoryService.swift in Sources */,
 				6B39DB80270F71B300507BF8 /* RepositoryTableViewCell.swift in Sources */,
 				6B4CB521270CD8B100E0543E /* AppDelegate.swift in Sources */,
@@ -523,6 +534,7 @@
 				6B39DBB72710811600507BF8 /* URLRequest+Extension.swift in Sources */,
 				6B671168270E26EB00F72590 /* RepositoriesListViewController.swift in Sources */,
 				6B39DBC2271081AA00507BF8 /* APIResponseError.swift in Sources */,
+				6B73AFDB2711D15400AEBBCC /* APIErrorView.swift in Sources */,
 				6B39DB9B271070FA00507BF8 /* GithubRepositoryServiceProtocol.swift in Sources */,
 				6B4CB523270CD8B100E0543E /* SceneDelegate.swift in Sources */,
 			);

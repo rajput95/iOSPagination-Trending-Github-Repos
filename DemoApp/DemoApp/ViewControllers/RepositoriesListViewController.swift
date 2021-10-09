@@ -13,22 +13,18 @@ class RepositoriesListViewController: UITableViewController {
     
     // MARK: Properties
     var viewModel: RepositoriesListViewModel!
-    let spinner = UIActivityIndicatorView(style: .medium)
-  
+    lazy var spinner = UIActivityIndicatorView(style: .medium)
+    lazy var apiErrorView = APIErrorView(frame: CGRect(x: 0.0, y: 0.0, width: tableView.frame.width, height: 500))
+    
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let checkMarkAnimation =  AnimationView(name: "retry-and-user-busy-lottie")
-        self.tableView.addSubview(checkMarkAnimation)
-        checkMarkAnimation.frame = self.tableView.bounds
-        checkMarkAnimation.loopMode = .loop
-        checkMarkAnimation.play()
-        
-               initializeViewModel()
-//        setupView()
-
-//        viewModel.fetchRepositories()
+        setupView()
+        initializeViewModel()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.viewModel.fetchRepositories()
+        }
     }
     
     // MARK: Methods
@@ -45,24 +41,30 @@ class RepositoriesListViewController: UITableViewController {
             
             if indexPaths != nil {
                 self.tableView.insertRows(at: indexPaths!, with: .bottom)
+                
             } else {
                 self.tableView.reloadData()
             }
         }
         
-        viewModel.fetchFailedCompletion = { [weak self] failureReason in
+        viewModel.fetchFailedCompletion = { [weak self] in
             guard let self = self else {
                 return
             }
-            
-            self.tableView.tableFooterView?.isHidden = true
             self.tableView.refreshControl?.endRefreshing()
             
-            print("error received in api call")
+            if self.viewModel.currentCount == 0 {
+                self.tableView.reloadData()
+            }
+            
+            self.tableView.tableFooterView = self.apiErrorView
+            self.apiErrorView.lottieView.play()
+            self.tableView.scrollRectToVisible(self.tableView.tableFooterView!.frame, animated: true)
         }
     }
     
     func setupView() {
+        apiErrorView.delegate = self
         spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshRepositoryList), for: .valueChanged)
@@ -84,6 +86,10 @@ class RepositoriesListViewController: UITableViewController {
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if viewModel.currentCount == 0 && viewModel.apiRequestDidFail {
+            return 0
+        }
+        
         return viewModel.currentCount == 0 ? viewModel.itemsPerPage : viewModel.currentCount
     }
     
@@ -111,22 +117,39 @@ class RepositoriesListViewController: UITableViewController {
     }
 }
 
+extension RepositoriesListViewController: APIErrorViewDelegate {
+    func retryButtonTappedCompletion() {
+        if viewModel.currentCount > 0 {
+            tableView.tableFooterView = spinner
+            tableView.tableFooterView!.isHidden = false
+        
+        } else {
+            viewModel.apiRequestDidFail = false
+            self.tableView.reloadData()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.viewModel.fetchRepositories()
+        }
+    }
+}
+
 // MARK: ScrollView Delegate Methods
-//extension RepositoriesListViewController {
-//    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height
-//
-//        if bottomEdge >= scrollView.contentSize.height &&
-//            !viewModel.isFetchInProgress &&
-//            viewModel.currentCount < viewModel.totalCount {
-//
-//            spinner.startAnimating()
-//
-//            self.tableView.tableFooterView = spinner
-//            self.tableView.tableFooterView?.isHidden = false
-//
-//            viewModel.fetchRepositories()
-//        }
-//
-//    }
-//}
+extension RepositoriesListViewController {
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let bottomEdge = scrollView.contentOffset.y + scrollView.frame.size.height + 50
+
+        if bottomEdge >= scrollView.contentSize.height &&
+            viewModel.currentCount < viewModel.totalCount {
+
+            spinner.startAnimating()
+
+            self.tableView.tableFooterView = spinner
+            self.tableView.tableFooterView!.isHidden = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.viewModel.fetchRepositories()
+            }
+        }
+    }
+}
