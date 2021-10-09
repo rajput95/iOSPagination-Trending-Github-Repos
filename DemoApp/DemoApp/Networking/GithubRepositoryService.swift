@@ -20,14 +20,28 @@ struct PagedRepositoryResponse: Codable {
 struct Repository: Codable {
     let id: Int
     let name: String
+    let description: String
+    let owner: RepositoryOwner
     let fullName: String
     let stargazersCount: Int
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
+        case description
+        case owner
         case fullName = "full_name"
         case stargazersCount = "stargazers_count"
+    }
+}
+
+struct RepositoryOwner: Codable {
+    let username: String
+    let avatarURL: String
+    
+    enum CodingKeys: String, CodingKey {
+        case username = "login"
+        case avatarURL = "avatar_url"
     }
 }
 
@@ -53,7 +67,7 @@ class GithubRepoistoryService: GithubRepositoryServiceProtocol {
                           completion: @escaping (Result<PagedRepositoryResponse, APIResponseError>) -> Void) {
         
         let urlRequest = URLRequest(url: baseURL.appendingPathComponent(request.path))
-        let parameters = ["page": "\(page)"].merging(request.parameters, uniquingKeysWith: +)
+        let parameters = ["page": "\(page)", "per_page": "\(itemsPerPage)"].merging(request.parameters, uniquingKeysWith: +)
         let encodedURLRequest = urlRequest.encode(with: parameters)
         
         session.dataTask(with: encodedURLRequest, completionHandler: { data, response, error in

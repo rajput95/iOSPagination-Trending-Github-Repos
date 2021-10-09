@@ -13,11 +13,12 @@ class RepositoriesListViewModel {
     private var repositories: [Repository] = []
     private var currentPage = 1
     private var total = 0
+    private var itemsPerPage = 50
     private var isFetchInProgress = false
     let service: GithubRepositoryServiceProtocol
     let request: RepositoryRequest
     var reloadTableViewCompletion: (([IndexPath]?) -> Void)?
-    var fetchFailedCompletion: (() -> Void)?
+    var fetchFailedCompletion: ((String) -> Void)?
     
     var totalCount: Int {
       return total
@@ -34,7 +35,7 @@ class RepositoriesListViewModel {
     }
 
     // MARK: Helper Methods
-    func repositry(at index: Int) -> Repository {
+    func repository(at index: Int) -> Repository {
       return repositories[index]
     }
     
@@ -42,11 +43,10 @@ class RepositoriesListViewModel {
 //        guard !isFetchInProgress else {
 //          return
 //        }
-//
 
-//        isFetchInProgress = true
+        isFetchInProgress = true
         
-        service.searchRepository(with: self.request, for: currentPage, itemsPerPage: 100) { [weak self] result in
+        service.searchRepository(with: self.request, for: currentPage, itemsPerPage: itemsPerPage) { [weak self] result in
             
             guard let self = self else {
                 return
@@ -57,7 +57,7 @@ class RepositoriesListViewModel {
             case .failure(let error):
               DispatchQueue.main.async {
                 self.isFetchInProgress = false
-                self.fetchFailedCompletion?()
+                self.fetchFailedCompletion?(error.reason)
               }
             
             case .success(let response):
@@ -69,14 +69,20 @@ class RepositoriesListViewModel {
                 self.repositories.append(contentsOf: response.repositories)
               
                 if self.currentPage > 2 {
-                    
-                  //let indexPathsToReload = self.calculateIndexPathsToReload(from: response.moderators)
-                    self.reloadTableViewCompletion?(.none)
+                    let indexPathsToReload = self.calculateIndexPathsToReload(from: response.repositories)
+                    self.reloadTableViewCompletion?(indexPathsToReload)
+                
                 } else {
                     self.reloadTableViewCompletion?(.none)
                 }
               }
             }
         }
+    }
+    
+    private func calculateIndexPathsToReload(from newRepositories: [Repository]) -> [IndexPath] {
+      let startIndex = repositories.count - newRepositories.count
+      let endIndex = startIndex + newRepositories.count
+      return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }

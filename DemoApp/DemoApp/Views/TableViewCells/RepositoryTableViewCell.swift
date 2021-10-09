@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class RepositoryTableViewCell: UITableViewCell {
     
@@ -16,8 +17,16 @@ class RepositoryTableViewCell: UITableViewCell {
     
     // MARK: Outlets
     @IBOutlet weak var containerView: UIStackView!
-    @IBOutlet weak var cellExpandedView: UIView!
+    
     @IBOutlet weak var cellBasicView: UIView!
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var repositoryName: UILabel!
+    @IBOutlet weak var repositoryDescription: UILabel!
+   
+    @IBOutlet weak var cellExpandedView: UIView!
+    @IBOutlet weak var language: UILabel!
+    @IBOutlet weak var stargazersCount: UILabel!
     
     // MARK: View Lifecycle
     required init?(coder: NSCoder) {
@@ -31,6 +40,24 @@ class RepositoryTableViewCell: UITableViewCell {
             showDetailView()
         } else {
             hideDetailView()
+        }
+    }
+    
+    func configure(for repository: Repository?) {
+        if let repository = repository {
+            if let imageURL = URL(string: repository.owner.avatarURL) {
+                avatarImageView.sd_setImage(with: imageURL)
+            }
+            
+            username.text = repository.owner.username
+            repositoryName.text = repository.fullName
+            repositoryDescription.text = repository.description
+            
+           // language = repository.owner.l
+            stargazersCount.text = "\(repository.stargazersCount)"
+            
+        } else {
+            username.text = "Loading...."
         }
     }
     
