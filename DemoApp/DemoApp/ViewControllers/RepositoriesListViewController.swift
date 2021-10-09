@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
-import Lottie
 
 class RepositoriesListViewController: UITableViewController {
     
@@ -117,6 +115,7 @@ class RepositoriesListViewController: UITableViewController {
     }
 }
 
+// MARK: APIErrorView Delegate Methods
 extension RepositoriesListViewController: APIErrorViewDelegate {
     func retryButtonTappedCompletion() {
         if viewModel.currentCount > 0 {

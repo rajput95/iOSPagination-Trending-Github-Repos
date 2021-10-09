@@ -21,6 +21,7 @@ struct Repository: Codable {
     let id: Int
     let name: String
     let description: String
+    let language: String?
     let owner: RepositoryOwner
     let fullName: String
     let stargazersCount: Int
@@ -29,6 +30,7 @@ struct Repository: Codable {
         case id
         case name
         case description
+        case language
         case owner
         case fullName = "full_name"
         case stargazersCount = "stargazers_count"
@@ -100,7 +102,7 @@ struct RepositoryRequest {
         self.parameters = parameters
     }
     
-    static func request() -> RepositoryRequest {
+    static func createRequest() -> RepositoryRequest {
         let parameters = ["q": "language=+sort:stars"]
         return RepositoryRequest(parameters: parameters)
     }

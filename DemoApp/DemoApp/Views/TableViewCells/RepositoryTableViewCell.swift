@@ -59,7 +59,7 @@ class RepositoryTableViewCell: UITableViewCell {
             repositoryDescription.text = repository.description
             repositoryDescription.isHidden = false
             
-           // language = repository.owner.l
+            language.text = repository.language ?? "N/A"
             stargazersCount.text = "\(repository.stargazersCount)"
             
         } else {

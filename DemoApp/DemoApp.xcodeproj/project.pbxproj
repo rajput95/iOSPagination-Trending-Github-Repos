@@ -204,8 +204,7 @@
 		6B4CB553270CD8B900E0543E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6B73AFDA2711D15400AEBBCC /* APIErrorView.swift */,
-				6BCAC0452711EC7000EC8891 /* APIErrorView.xib */,
+				6BCAC081271244E200EC8891 /* ErrorViews */,
 				6B39DB84270F71BD00507BF8 /* TableViewCells */,
 				6B4CB55F270CD8EA00E0543E /* Storyboards */,
 			);
@@ -249,8 +248,8 @@
 		6B4CB55F270CD8EA00E0543E /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				6B4CB52B270CD8B400E0543E /* LaunchScreen.storyboard */,
 				6B4CB526270CD8B100E0543E /* Main.storyboard */,
+				6B4CB52B270CD8B400E0543E /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -261,6 +260,15 @@
 				6B67115F270E1EB700F72590 /* RepositoriesListViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		6BCAC081271244E200EC8891 /* ErrorViews */ = {
+			isa = PBXGroup;
+			children = (
+				6B73AFDA2711D15400AEBBCC /* APIErrorView.swift */,
+				6BCAC0452711EC7000EC8891 /* APIErrorView.xib */,
+			);
+			path = ErrorViews;
 			sourceTree = "<group>";
 		};
 		AAB76AE09DBBB6858DA479AF /* Frameworks */ = {

@@ -13,10 +13,10 @@ class RepositoriesListViewModel {
     private var repositories: [Repository] = []
     private var currentPage = 1
     private var total = 0
-    var itemsPerPage = 20
     private var dataFectchInProgress = false
     let service: GithubRepositoryServiceProtocol
     let request: RepositoryRequest
+    var itemsPerPage = 20
     var reloadTableViewCompletion: (([IndexPath]?) -> Void)?
     var fetchFailedCompletion: (() -> Void)?
     var apiRequestDidFail = false
@@ -26,22 +26,22 @@ class RepositoriesListViewModel {
     }
     
     var totalCount: Int {
-      return total
+        return total
     }
     
     var currentCount: Int {
-      return repositories.count
+        return repositories.count
     }
-
+    
     // MARK: Init
     init(service: GithubRepositoryServiceProtocol = GithubRepoistoryService()) {
-        self.request = RepositoryRequest.request()
+        self.request = RepositoryRequest.createRequest()
         self.service = service
     }
-
-    // MARK: Helper Methods
+    
+    // MARK: Methods
     func repository(at index: Int) -> Repository {
-      return repositories[index]
+        return repositories[index]
     }
     
     func refreshRepositoryData() {
@@ -52,7 +52,7 @@ class RepositoriesListViewModel {
     
     func fetchRepositories() {
         guard !dataFectchInProgress else {
-          return
+            return
         }
         
         dataFectchInProgress = true
@@ -65,36 +65,38 @@ class RepositoriesListViewModel {
             }
             
             switch result {
-            case .failure(_):
-              DispatchQueue.main.async {
-                self.apiRequestDidFail = true
-                self.dataFectchInProgress = false
-                self.fetchFailedCompletion?()
-              }
-            
-            case .success(let response):
-              DispatchQueue.main.async {
-                self.currentPage += 1
-                self.dataFectchInProgress = false
-    
-                self.total = response.totalCount
-                self.repositories.append(contentsOf: response.repositories)
-              
-                if self.currentPage > 2 {
-                    let indexPathsToReload = self.calculateIndexPathsToReload(from: response.repositories)
-                    self.reloadTableViewCompletion?(indexPathsToReload)
+            case .failure(let error):
+                print("API failed due to error: \(error)")
                 
-                } else {
-                    self.reloadTableViewCompletion?(.none)
+                DispatchQueue.main.async {
+                    self.apiRequestDidFail = true
+                    self.dataFectchInProgress = false
+                    self.fetchFailedCompletion?()
                 }
-              }
+                
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self.currentPage += 1
+                    self.dataFectchInProgress = false
+                    
+                    self.total = response.totalCount
+                    self.repositories.append(contentsOf: response.repositories)
+                    
+                    if self.currentPage > 2 {
+                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.repositories)
+                        self.reloadTableViewCompletion?(indexPathsToReload)
+                        
+                    } else {
+                        self.reloadTableViewCompletion?(.none)
+                    }
+                }
             }
         }
     }
     
     private func calculateIndexPathsToReload(from newRepositories: [Repository]) -> [IndexPath] {
-      let startIndex = repositories.count - newRepositories.count
-      let endIndex = startIndex + newRepositories.count
-      return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+        let startIndex = repositories.count - newRepositories.count
+        let endIndex = startIndex + newRepositories.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }
