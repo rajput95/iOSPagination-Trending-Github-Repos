@@ -13,12 +13,16 @@ class RepositoriesListViewModel {
     private var repositories: [Repository] = []
     private var currentPage = 1
     private var total = 0
-    private var itemsPerPage = 50
-    private var isFetchInProgress = false
+    var itemsPerPage = 20
+    private var dataFectchInProgress = false
     let service: GithubRepositoryServiceProtocol
     let request: RepositoryRequest
     var reloadTableViewCompletion: (([IndexPath]?) -> Void)?
     var fetchFailedCompletion: ((String) -> Void)?
+    
+    var isFetchInProgress: Bool {
+        return dataFectchInProgress
+    }
     
     var totalCount: Int {
       return total
@@ -39,12 +43,18 @@ class RepositoriesListViewModel {
       return repositories[index]
     }
     
+    func refreshRepositoryData() {
+        repositories.removeAll()
+        currentPage = 1
+        total = 0
+    }
+    
     func fetchRepositories() {
-//        guard !isFetchInProgress else {
-//          return
-//        }
+        guard !dataFectchInProgress else {
+          return
+        }
 
-        isFetchInProgress = true
+        dataFectchInProgress = true
         
         service.searchRepository(with: self.request, for: currentPage, itemsPerPage: itemsPerPage) { [weak self] result in
             
@@ -56,14 +66,14 @@ class RepositoriesListViewModel {
          
             case .failure(let error):
               DispatchQueue.main.async {
-                self.isFetchInProgress = false
+                self.dataFectchInProgress = false
                 self.fetchFailedCompletion?(error.reason)
               }
             
             case .success(let response):
               DispatchQueue.main.async {
                 self.currentPage += 1
-                self.isFetchInProgress = false
+                self.dataFectchInProgress = false
     
                 self.total = response.totalCount
                 self.repositories.append(contentsOf: response.repositories)

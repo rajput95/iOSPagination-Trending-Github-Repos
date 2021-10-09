@@ -24,6 +24,7 @@
 		6B4CB543270CD8B400E0543E /* DemoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4CB542270CD8B400E0543E /* DemoAppUITests.swift */; };
 		6B671160270E1EB700F72590 /* RepositoriesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B67115F270E1EB700F72590 /* RepositoriesListViewModel.swift */; };
 		6B671168270E26EB00F72590 /* RepositoriesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B671167270E26EB00F72590 /* RepositoriesListViewController.swift */; };
+		6B709DC92711CC6F000CF4D4 /* retry-and-user-busy-lottie.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B709DC82711CC6F000CF4D4 /* retry-and-user-busy-lottie.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		6B4CB544270CD8B400E0543E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B67115F270E1EB700F72590 /* RepositoriesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesListViewModel.swift; sourceTree = "<group>"; };
 		6B671167270E26EB00F72590 /* RepositoriesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesListViewController.swift; sourceTree = "<group>"; };
+		6B709DC82711CC6F000CF4D4 /* retry-and-user-busy-lottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "retry-and-user-busy-lottie.json"; sourceTree = "<group>"; };
 		75259C28AA69D58FE52451AF /* Pods_DemoApp_DemoAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoApp_DemoAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B24ABBC7D6F2F236EF9EEC27 /* Pods-DemoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoAppTests.debug.xcconfig"; path = "Target Support Files/Pods-DemoAppTests/Pods-DemoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D59D096B7362499A9A75CAAC /* Pods-DemoApp-DemoAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoApp-DemoAppUITests.release.xcconfig"; path = "Target Support Files/Pods-DemoApp-DemoAppUITests/Pods-DemoApp-DemoAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 		6B4CB55E270CD8D200E0543E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6B709DC82711CC6F000CF4D4 /* retry-and-user-busy-lottie.json */,
 				6B4CB529270CD8B400E0543E /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -385,6 +388,7 @@
 				6B4CB52D270CD8B400E0543E /* LaunchScreen.storyboard in Resources */,
 				6B4CB52A270CD8B400E0543E /* Assets.xcassets in Resources */,
 				6B4CB528270CD8B100E0543E /* Main.storyboard in Resources */,
+				6B709DC92711CC6F000CF4D4 /* retry-and-user-busy-lottie.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

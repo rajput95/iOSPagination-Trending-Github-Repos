@@ -1,18 +1,26 @@
 PODS:
+  - lottie-ios (3.2.3)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - SkeletonView (1.25.1)
 
 DEPENDENCIES:
+  - lottie-ios
   - SDWebImage
+  - SkeletonView
 
 SPEC REPOS:
   trunk:
+    - lottie-ios
     - SDWebImage
+    - SkeletonView
 
 SPEC CHECKSUMS:
+  lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SkeletonView: 77079530e1348a72f48b79ae30dcb966c1b18b6a
 
-PODFILE CHECKSUM: a6b85d8d65081130dd9ee4982ff120715989aeb0
+PODFILE CHECKSUM: d6ca1fb55e31f1582fcc52fe4d4ee3ca1004d772
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.8.4

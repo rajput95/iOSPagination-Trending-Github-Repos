@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import SkeletonView
 
 class RepositoryTableViewCell: UITableViewCell {
     
@@ -45,19 +46,24 @@ class RepositoryTableViewCell: UITableViewCell {
     
     func configure(for repository: Repository?) {
         if let repository = repository {
+            cellBasicView.hideSkeleton()
+            
             if let imageURL = URL(string: repository.owner.avatarURL) {
                 avatarImageView.sd_setImage(with: imageURL)
             }
             
             username.text = repository.owner.username
             repositoryName.text = repository.fullName
+            
             repositoryDescription.text = repository.description
+            repositoryDescription.isHidden = false
             
            // language = repository.owner.l
             stargazersCount.text = "\(repository.stargazersCount)"
             
         } else {
-            username.text = "Loading...."
+            repositoryDescription.isHidden = true
+            cellBasicView.showAnimatedGradientSkeleton()
         }
     }
     
