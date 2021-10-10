@@ -41,7 +41,7 @@ class GithubRepoistoryService: GithubRepositoryServiceProtocol {
         let urlRequest = URLRequest(url: baseURL.appendingPathComponent(request.path))
         let parameters = ["page": "\(page)", "per_page": "\(itemsPerPage)"].merging(request.parameters, uniquingKeysWith: +)
         var encodedURLRequest = urlRequest.encode(with: parameters)
-        encodedURLRequest.timeoutInterval = 10
+        encodedURLRequest.timeoutInterval = 15
         
         session.dataTask(with: encodedURLRequest, completionHandler: { data, response, error in
             
