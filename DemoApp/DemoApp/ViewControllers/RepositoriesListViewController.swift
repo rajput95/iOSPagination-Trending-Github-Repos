@@ -26,9 +26,19 @@ class RepositoriesListViewController: UITableViewController {
     }
     
     // MARK: Methods
+    func setupView() {
+        apiErrorView.delegate = self
+        spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshRepositoryList), for: .valueChanged)
+    }
+    
     func initializeViewModel() {
         viewModel = RepositoriesListViewModel()
-        
+        initializeCompletionHandlers()
+    }
+    
+    func initializeCompletionHandlers() {
         viewModel.reloadTableViewCompletion = { [weak self ] indexPaths in
             guard let self = self else {
                 return
@@ -61,17 +71,11 @@ class RepositoriesListViewController: UITableViewController {
         }
     }
     
-    func setupView() {
-        apiErrorView.delegate = self
-        spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(44))
-        tableView.refreshControl = UIRefreshControl()
-        tableView.refreshControl?.addTarget(self, action: #selector(refreshRepositoryList), for: .valueChanged)
-    }
-    
     @objc func refreshRepositoryList() {
-        viewModel.refreshRepositoryData()
+        viewModel.resetRepositoryData()
         
         DispatchQueue.main.async {
+            self.tableView.tableFooterView = nil
             self.tableView.reloadData()
         }
         

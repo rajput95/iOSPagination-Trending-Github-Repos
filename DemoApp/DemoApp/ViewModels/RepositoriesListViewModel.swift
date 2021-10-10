@@ -16,7 +16,7 @@ class RepositoriesListViewModel {
     private var dataFectchInProgress = false
     let service: GithubRepositoryServiceProtocol
     let request: RepositoryRequest
-    var itemsPerPage = 20
+    var itemsPerPage = 100
     var reloadTableViewCompletion: (([IndexPath]?) -> Void)?
     var fetchFailedCompletion: (() -> Void)?
     var apiRequestDidFail = false
@@ -44,7 +44,7 @@ class RepositoriesListViewModel {
         return repositories[index]
     }
     
-    func refreshRepositoryData() {
+    func resetRepositoryData() {
         repositories.removeAll()
         currentPage = 1
         total = 0

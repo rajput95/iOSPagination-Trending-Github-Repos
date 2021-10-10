@@ -7,49 +7,19 @@
 
 import Foundation
 
-struct PagedRepositoryResponse: Codable {
-    let repositories: [Repository]
-    let totalCount: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case repositories = "items"
-        case totalCount = "total_count"
+struct RepositoryRequest {
+    var path: String {
+        return "search/repositories"
     }
-}
-
-struct Repository: Codable {
-    let id: Int
-    let name: String
-    let description: String
-    let language: String?
-    let owner: RepositoryOwner
-    let fullName: String
-    let stargazersCount: Int
     
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case description
-        case language
-        case owner
-        case fullName = "full_name"
-        case stargazersCount = "stargazers_count"
+    let parameters: Parameters
+    private init(parameters: Parameters) {
+        self.parameters = parameters
     }
-}
-
-struct RepositoryOwner: Codable {
-    let username: String
-    let avatarURL: String
     
-    enum CodingKeys: String, CodingKey {
-        case username = "login"
-        case avatarURL = "avatar_url"
-    }
-}
-
-extension HTTPURLResponse {
-    var hasSuccessStatusCode: Bool {
-        return 200...299 ~= statusCode
+    static func createRequest() -> RepositoryRequest {
+        let parameters = ["q": "language=+sort:stars"]
+        return RepositoryRequest(parameters: parameters)
     }
 }
 
@@ -70,7 +40,8 @@ class GithubRepoistoryService: GithubRepositoryServiceProtocol {
         
         let urlRequest = URLRequest(url: baseURL.appendingPathComponent(request.path))
         let parameters = ["page": "\(page)", "per_page": "\(itemsPerPage)"].merging(request.parameters, uniquingKeysWith: +)
-        let encodedURLRequest = urlRequest.encode(with: parameters)
+        var encodedURLRequest = urlRequest.encode(with: parameters)
+        encodedURLRequest.timeoutInterval = 10
         
         session.dataTask(with: encodedURLRequest, completionHandler: { data, response, error in
             
@@ -89,21 +60,5 @@ class GithubRepoistoryService: GithubRepositoryServiceProtocol {
             completion(Result.success(decodedResponse))
         }).resume()
         
-    }
-}
-
-struct RepositoryRequest {
-    var path: String {
-        return "search/repositories"
-    }
-    
-    let parameters: Parameters
-    private init(parameters: Parameters) {
-        self.parameters = parameters
-    }
-    
-    static func createRequest() -> RepositoryRequest {
-        let parameters = ["q": "language=+sort:stars"]
-        return RepositoryRequest(parameters: parameters)
     }
 }
