@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="APIErrorView" customModule="DemoApp" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="vqF-nB-ggS" id="UdT-ln-kIQ"/>
+                <outlet property="lottieView" destination="7ew-wZ-gUX" id="UNU-D8-MSA"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="vqF-nB-ggS">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="500"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ew-wZ-gUX" userLabel="Lottie View" customClass="AnimationView" customModule="Lottie">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="300" id="SwL-1r-INs"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="retry-and-user-busy-lottie"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An alien is probably blocking your signal." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCl-ki-HGN">
+                    <rect key="frame" x="8" y="344.5" width="398" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3h-qK-PrQ">
+                    <rect key="frame" x="20.5" y="411.5" width="373" height="50"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="SsO-Ln-o6U"/>
+                    </constraints>
+                    <state key="normal" title="RETRY">
+                        <color key="titleColor" systemColor="systemGreenColor"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" systemColor="systemGreenColor"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="retryButtonTapped:" destination="-2" eventType="touchUpInside" id="dTJ-8Q-Eam"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something went wrong.." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8NA-FT-Uec">
+                    <rect key="frame" x="8" y="316" width="398" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Ye6-nV-IHO"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vCl-ki-HGN" firstAttribute="top" secondItem="8NA-FT-Uec" secondAttribute="bottom" constant="8" id="AKT-9M-Mvd"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8NA-FT-Uec" secondAttribute="trailing" constant="8" id="BIW-Y1-hYD"/>
+                <constraint firstItem="8NA-FT-Uec" firstAttribute="leading" secondItem="vqF-nB-ggS" secondAttribute="leading" constant="8" id="DBU-TL-e35"/>
+                <constraint firstAttribute="trailing" secondItem="7ew-wZ-gUX" secondAttribute="trailing" id="GPV-2F-wGk"/>
+                <constraint firstItem="c3h-qK-PrQ" firstAttribute="top" secondItem="vCl-ki-HGN" secondAttribute="bottom" constant="50" id="KMv-eK-QFF"/>
+                <constraint firstItem="c3h-qK-PrQ" firstAttribute="centerX" secondItem="vqF-nB-ggS" secondAttribute="centerX" id="PFz-vT-nG2"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vCl-ki-HGN" secondAttribute="trailing" constant="8" id="Q4p-BN-mt5"/>
+                <constraint firstItem="8NA-FT-Uec" firstAttribute="top" secondItem="7ew-wZ-gUX" secondAttribute="bottom" constant="16" id="eaN-3e-5Zr"/>
+                <constraint firstItem="7ew-wZ-gUX" firstAttribute="top" secondItem="vqF-nB-ggS" secondAttribute="top" id="fHU-4k-62t"/>
+                <constraint firstItem="7ew-wZ-gUX" firstAttribute="leading" secondItem="vqF-nB-ggS" secondAttribute="leading" id="hT3-3g-FAZ"/>
+                <constraint firstItem="8NA-FT-Uec" firstAttribute="centerX" secondItem="vqF-nB-ggS" secondAttribute="centerX" id="mWG-Pp-kYq"/>
+                <constraint firstItem="vCl-ki-HGN" firstAttribute="leading" secondItem="vqF-nB-ggS" secondAttribute="leading" constant="8" id="pP9-Xb-6hS"/>
+                <constraint firstItem="vCl-ki-HGN" firstAttribute="centerX" secondItem="vqF-nB-ggS" secondAttribute="centerX" id="taI-jo-bfC"/>
+                <constraint firstItem="c3h-qK-PrQ" firstAttribute="width" secondItem="vqF-nB-ggS" secondAttribute="width" multiplier="0.9" id="vrt-ho-9Qb"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="836" y="75"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
