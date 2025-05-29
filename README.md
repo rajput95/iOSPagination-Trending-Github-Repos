@@ -38,28 +38,28 @@ within a DDD-based modular structure to ensure clearer separation of concerns an
 Each feature module will be self-contained and structured into the following layers:
 - Domain:
   - Contains core business logic, entities, value objects, and use cases.
-    •    Fully independent of any UI or data persistence details.
-    •    Defines interfaces (protocols) for repositories or services that the domain depends on, allowing the actual implementations to live in infrastructure.
-    •    This layer should remain pure and platform-agnostic, making it highly testable and reusable.
-    •    Application:
-    •    Contains coordination logic, mappers, view models, and input/output transformation between domain and UI layers.
-    •    Implements the orchestration of use cases, making it the “glue” between domain and UI.
-    •    It may depend on both the domain and infrastructure layers, but not on SwiftUI or UIKit directly.
-    •    UI:
-    •    Includes all SwiftUI views, view-specific modifiers, animations, and UI state management via view models.
-    •    This is the only layer that should interact with SwiftUI.
-    •    It communicates with the application layer to trigger use cases and observe UI-ready data.
-    •    Infrastructure:
-    •    Contains external dependencies such as networking, local storage, analytics, third-party SDKs, and platform services.
-    •    Implements the interfaces defined in the domain layer.
-    •    Designed to be replaceable and mockable for testing purposes.
+  - Fully independent of any UI or data persistence details.
+  - Defines interfaces (protocols) for repositories or services that the domain depends on, allowing the actual implementations to live in infrastructure.
+  - This layer should remain pure and platform-agnostic, making it highly testable and reusable.
+- Application:
+  - Contains coordination logic, mappers, view models, and input/output transformation between domain and UI layers.
+  - Implements the orchestration of use cases, making it the “glue” between domain and UI.
+  - It may depend on both the domain and infrastructure layers, but not on SwiftUI or UIKit directly.
+- UI:
+  - Includes all SwiftUI views, view-specific modifiers, animations, and UI state management via view models.
+  - This is the only layer that should interact with SwiftUI.
+  - It communicates with the application layer to trigger use cases and observe UI-ready data.
+- Infrastructure:
+  - Contains external dependencies such as networking, local storage, analytics, third-party SDKs, and platform services.
+  - Implements the interfaces defined in the domain layer.
+  - Designed to be replaceable and mockable for testing purposes.
 
 All new and existing features will gradually align with this structure, promoting:
-    •    Modularity: Independent feature modules with well-defined boundaries.
-    •    Testability: Isolated business logic and abstractions improve unit and integration test coverage.
-    •    Scalability: Teams can work in parallel on different domains without stepping on each other’s toes.
-    •    Maintainability: Easier to understand, refactor, and evolve over time.
-    •    Reusability: Common domain logic can be shared across platforms or features without duplication.
+- Modularity: Independent feature modules with well-defined boundaries.
+- Testability: Isolated business logic and abstractions improve unit and integration test coverage.
+- Scalability: Teams can work in parallel on different domains without stepping on each other’s toes.
+- Maintainability: Easier to understand, refactor, and evolve over time.
+- Reusability: Common domain logic can be shared across platforms or features without duplication.
 
 This decision enables us to scale development across multiple teams, streamline onboarding, and establish a consistent and sustainable foundation for future growth and experimentation.
 
