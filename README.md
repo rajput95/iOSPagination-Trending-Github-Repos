@@ -37,7 +37,7 @@ within a DDD-based modular structure to ensure clearer separation of concerns an
 
 Each feature module will be self-contained and structured into the following layers:
 - Domain:
- - Contains core business logic, entities, value objects, and use cases.
+  - Contains core business logic, entities, value objects, and use cases.
     •    Fully independent of any UI or data persistence details.
     •    Defines interfaces (protocols) for repositories or services that the domain depends on, allowing the actual implementations to live in infrastructure.
     •    This layer should remain pure and platform-agnostic, making it highly testable and reusable.
