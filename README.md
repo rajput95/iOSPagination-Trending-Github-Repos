@@ -55,11 +55,16 @@ Each feature module will be self-contained and structured into the following lay
   - Designed to be replaceable and mockable for testing purposes.
 
 All new and existing features will gradually align with this structure, promoting:
-- Modularity: Independent feature modules with well-defined boundaries.
-- Testability: Isolated business logic and abstractions improve unit and integration test coverage.
-- Scalability: Teams can work in parallel on different domains without stepping on each other’s toes.
-- Maintainability: Easier to understand, refactor, and evolve over time.
-- Reusability: Common domain logic can be shared across platforms or features without duplication.
+- Modularity:
+  - Independent feature modules with well-defined boundaries.
+- Testability:
+  - Isolated business logic and abstractions improve unit and integration test coverage.
+- Scalability:
+  - Teams can work in parallel on different domains without stepping on each other’s toes.
+- Maintainability:
+  - Easier to understand, refactor, and evolve over time.
+- Reusability:
+  -  Common domain logic can be shared across platforms or features without duplication.
 
 This decision enables us to scale development across multiple teams, streamline onboarding, and establish a consistent and sustainable foundation for future growth and experimentation.
 
