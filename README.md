@@ -42,13 +42,14 @@ Each feature module will be self-contained and structured into the following lay
   - Defines interfaces (protocols) for repositories or services that the domain depends on, allowing the actual implementations to live in infrastructure.
   - This layer should remain pure and platform-agnostic, making it highly testable and reusable.
 - Application:
-  - Contains coordination logic, mappers, view models, and input/output transformation between domain and UI layers.
+  - Contains coordination logic, mappers and input/output transformation between domain and UI layers.
   - Implements the orchestration of use cases, making it the “glue” between domain and UI.
   - It may depend on both the domain and infrastructure layers, but not on SwiftUI or UIKit directly.
 - UI:
-  - Includes all SwiftUI views, view-specific modifiers, animations, and UI state management via view models.
+  - Includes all SwiftUI views, view-specific modifiers, animations and ViewModels which manage UI state and trigger use cases.
+  - ViewModels communicate with the application layer to trigger domain logic and transform domain models into UI-ready state.
   - This is the only layer that should interact with SwiftUI.
-  - It communicates with the application layer to trigger use cases and observe UI-ready data.
+  - Ensures a unidirectional data flow and clear separation between presentation and business rules.
 - Infrastructure:
   - Contains external dependencies such as networking, local storage, analytics, third-party SDKs, and platform services.
   - Implements the interfaces defined in the domain layer.
@@ -71,34 +72,34 @@ This decision enables us to scale development across multiple teams, streamline 
 ## Consequences
 
 Positive Consequences
-  - Improved Modularity
-    - Each feature becomes a self-contained module with clear boundaries, making it easier to work on independently without affecting others.
-	- Better Separation of Concerns
-    - Responsibilities are clearly divided among layers (UI, Application, Domain, Infrastructure), reducing ambiguity and code entanglement.
-	-	Higher Testability
-    - Core business logic in the Domain layer is independent of frameworks and easier to unit test.
-	- Scalability Across Teams
-    - Allows teams to work in parallel on different domains with less dependency or conflict, improving velocity and collaboration.
-	-	Improved Maintainability and Code Readability
-    - Structured organization of code makes it easier to onboard new developers and reduces the time spent understanding feature internals.
-	- Alignment With Business Logic
-    - Domain-first approach ensures business rules are modeled and encapsulated appropriately, reducing risk of bugs and misbehavior in logic.
+- Improved Modularity
+  - Each feature becomes a self-contained module with clear boundaries, making it easier to work on independently without affecting others.
+- Better Separation of Concerns
+  - Responsibilities are clearly divided among layers (UI, Application, Domain, Infrastructure), reducing ambiguity and code entanglement.
+- Higher Testability
+  - Core business logic in the Domain layer is independent of frameworks and easier to unit test.
+- Scalability Across Teams
+  - Allows teams to work in parallel on different domains with less dependency or conflict, improving velocity and collaboration.
+- Improved Maintainability and Code Readability
+  - Structured organization of code makes it easier to onboard new developers and reduces the time spent understanding feature internals.
+- Alignment With Business Logic
+  - Domain-first approach ensures business rules are modeled and encapsulated appropriately, reducing risk of bugs and misbehavior in logic.
 
 Negative Consequences
-  - Increased Initial Complexity
+- Increased Initial Complexity
   - DDD introduces new layers and abstractions, which can feel over-engineered for smaller or simpler features.
-	- Learning Curve for Developers
-    - Developers unfamiliar with DDD concepts may need time to adjust, especially if coming from a more straightforward MVVM or MVC approach.
-	- Higher Onboarding Time in Early Stages
-    - Until the structure becomes standardized and well-documented, new contributors may face difficulty navigating between layers.
+- Learning Curve for Developers
+  - Developers unfamiliar with DDD concepts may need time to adjust, especially if coming from a more straightforward MVVM or MVC approach.
+- Higher Onboarding Time in Early Stages
+  - Until the structure becomes standardized and well-documented, new contributors may face difficulty navigating between layers.
 
 Neutral Consequences
-  - No Change in UI Framework
-    - SwiftUI and MVVM continue to be used for UI composition, so existing knowledge still applies. The change is more structural than functional.
-	- Tooling and Build Remain the Same
-    - No major impact on CI/CD pipelines, dependency management (e.g., CocoaPods, Swift Package Manager), or testing frameworks.
-	- Gradual Adoption Possible
-    - Teams can choose to incrementally apply DDD to new features while keeping existing ones untouched until needed.
+- No Change in UI Framework
+  - SwiftUI and MVVM continue to be used for UI composition, so existing knowledge still applies. The change is more structural than functional.
+- Tooling and Build Remain the Same
+  - No major impact on CI/CD pipelines, dependency management (e.g., CocoaPods, Swift Package Manager), or testing frameworks.
+- Gradual Adoption Possible
+  - Teams can choose to incrementally apply DDD to new features while keeping existing ones untouched until needed.
 
 ## References
   - A concise video explaing core concets of DDD in context of  mobile development: [Video Link](https://www.youtube.com/watch?v=kKpcxJTCIfQ)
