@@ -13,18 +13,27 @@ its implementation varies between different teams and feature streams.
 Each team has developed its own conventions for organizing code, resulting in fragmentation across the codebase.
 
 This lack of architectural consistency poses several challenges:
-- Unclear separation of concerns: Business logic is often intertwined with UI or networking code, making responsibilities ambiguous and harder to trace.
-- Tight coupling between layers: Domain logic is frequently embedded within the ViewModel or directly within the UI layer, which complicates testing, scalability, and long-term maintainability.
-- Poor testability and replaceability: Because boundaries between layers are unclear, writing isolated unit tests or swapping implementations without side effects becomes difficult.
-- Inconsistent structure: Teams structure features differently, leading to steep learning curves when onboarding new developers or transitioning between teams.
-- Degraded developer experience: Navigating the codebase becomes cumbersome as the structure varies widely between features.
+- Unclear separation of concerns:
+  - Business logic is often intertwined with UI or networking code, making responsibilities ambiguous and harder to trace.
+- Tight coupling between layers:
+  - Domain logic is frequently embedded within the ViewModel or directly within the UI layer, which complicates testing, scalability, and long-term maintainability.
+- Poor testability and replaceability:
+  - Because boundaries between layers are unclear, writing isolated unit tests or swapping implementations without side effects becomes difficult.
+- Inconsistent structure:
+  - Teams structure features differently, leading to steep learning curves when onboarding new developers or transitioning between teams.
+- Degraded developer experience:
+  - Navigating the codebase becomes cumbersome as the structure varies widely between features.
 
 To address these issues, we propose adopting Domain-Driven Design (DDD) as a foundation for app architecture. DDD emphasizes organizing code around business domains and aligning technical structure with real-world concepts. 
 When combined with MVVM and SwiftUI for UI presentation, DDD helps promote:
-- Feature-first modularization: Clear boundaries between features aligned with domain logic.
-- Improved scalability: Easier to onboard developers, split work across teams, and evolve individual domains independently.
-- Testability and maintainability: Encapsulated business rules and clearer ownership allow for more reliable and flexible code.
-- Consistency across teams: A standard, domain-oriented structure enhances code comprehension and cross-team collaboration.
+- Feature-first modularization:
+  - Clear boundaries between features aligned with domain logic.
+- Improved scalability:
+  - Easier to onboard developers, split work across teams, and evolve individual domains independently.
+- Testability and maintainability:
+  - Encapsulated business rules and clearer ownership allow for more reliable and flexible code.
+- Consistency across teams:
+  - A standard, domain-oriented structure enhances code comprehension and cross-team collaboration.
 
 The goal is not to replace MVVM or SwiftUI, but rather to refine the architecture around well-defined domain boundaries, enforce better separation of concerns, and create a more sustainable, developer-friendly foundation for 
 future growth.
