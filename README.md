@@ -1,6 +1,6 @@
 # 4. Domain Driven Design(DDD) for App Architecture
 
-Date: 2025-05-29
+Date: 2025-05-30
 
 ## Status
 
@@ -51,9 +51,11 @@ Each feature module will be self-contained and structured into the following lay
   - Defines interfaces (protocols) for repositories or services that the domain depends on, allowing the actual implementations to live in infrastructure.
   - This layer should remain pure and platform-agnostic, making it highly testable and reusable.
 - Application:
-  - Contains coordination logic, mappers and input/output transformation between domain and UI layers.
+  - Contains coordination logic, application services (AppService), anti-corruption layers (ACL), and input/output transformation between domain and UI layers.
   - Implements the orchestration of use cases, making it the “glue” between domain and UI.
-  - It may depend on both the domain and infrastructure layers, but not on SwiftUI or UIKit directly.
+  - The application layer may depend on both the domain and infrastructure layers, but not on SwiftUI or UIKit directly.
+  - The AppService inside this layer is focused on orchestrating multiple domain operations without holding business rules. It is called by ViewModels to trigger domain interactions.
+  - ACL (Anti-Corruption Layer) serves as a translator or adapter between external systems or legacy APIs and the domain model. This ensures that external systems do not pollute domain logic with unrelated models or concepts.
 - UI:
   - Includes all SwiftUI views, view-specific modifiers, animations and ViewModels which manage UI state and trigger use cases.
   - ViewModels communicate with the application layer to trigger domain logic and transform domain models into UI-ready state.
@@ -64,7 +66,7 @@ Each feature module will be self-contained and structured into the following lay
   - Implements the interfaces defined in the domain layer.
   - Designed to be replaceable and mockable for testing purposes.
 
-All new and existing features will gradually align with this structure, promoting:
+All new features will gradually align with this structure, promoting:
 - Modularity:
   - Independent feature modules with well-defined boundaries.
 - Testability:
@@ -77,6 +79,15 @@ All new and existing features will gradually align with this structure, promotin
   -  Common domain logic can be shared across platforms or features without duplication.
 
 This decision enables us to scale development across multiple teams, streamline onboarding, and establish a consistent and sustainable foundation for future growth and experimentation.
+
+### Unit Testing Requirements Post-DDD Adoption
+
+| Layer         | Testing Focus                                                      |
+|---------------|--------------------------------------------------------------------|
+| Domain        | ✅ Unit tests for entities, value objects, and use cases           |
+| Application   | ✅ Unit tests for AppServices and transformation logic             |
+| UI            | ✅ Unit tests for ViewModel                                        |
+| Infrastructure| ✅ Mocked and stubbed in unit tests                                |
 
 ## Consequences
 
