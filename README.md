@@ -80,7 +80,7 @@ All new features will gradually align with this structure, promoting:
 
 This decision enables us to scale development across multiple teams, streamline onboarding, and establish a consistent and sustainable foundation for future growth and experimentation.
 
-## Unit Testing Requirements Post-DDD Adoption
+#### Unit Testing Requirements Post-DDD Adoption
 
 | Layer         | Testing Focus                                                      |
 |---------------|--------------------------------------------------------------------|
